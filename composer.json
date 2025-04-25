@@ -3,7 +3,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -11,7 +14,9 @@
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
-        "tightenco/ziggy": "^2.0"
+        "stancl/tenancy": "^3.9",
+        "tightenco/ziggy": "^2.0",
+        "typesense/typesense-php": "^5.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -58,9 +63,16 @@
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
         ],
         "test": [
+            "@pint",
+            "@rector",
+            "@phpstan",
             "@php artisan config:clear --ansi",
-            "@php artisan test"
-        ]
+            "@php artisan test",
+            "@php artisan test --parallel"
+        ],
+        "pint": "vendor/bin/pint",
+        "rector": "vendor/bin/rector",
+        "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon"
     },
     "extra": {
         "laravel": {
